@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.navigationbar.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/ticketFragment"
+        android:name="com.example.navigationbar.TicketsFragment"
+        android:label="Tickets"
+        tools:layout="@layout/fragment_tickets" />
+
+    <fragment
+        android:id="@+id/messageFragment"
+        android:name="com.example.navigationbar.MessagesFragment"
+        android:label="Messages"
+        tools:layout="@layout/fragment_messages" />
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.navigationbar.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile" />
+</navigation>
