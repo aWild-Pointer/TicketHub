@@ -1,9 +1,12 @@
 package com.example.tickethub;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +16,7 @@ public class TicketPage extends AppCompatActivity {
 
     private TextView responseTextView;
     private ImageView qrImageView;
+    private Button btn_return;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +24,7 @@ public class TicketPage extends AppCompatActivity {
         setContentView(R.layout.activity_ticket_page);
 
         qrImageView = findViewById(R.id.qr_image_view);
+        btn_return = findViewById(R.id.btn_return);
 
         // 创建要发送的 JSON 数据
         String jsonData = "{\"data\": \"test-Linux\"}"; // 要发送的 JSON 数据
@@ -29,6 +34,19 @@ public class TicketPage extends AppCompatActivity {
 
         // 发送 POST 请求，并获取响应数据
         new SendDataAsyncTask().execute(apiClient, jsonData);
+
+        btn_return.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                Intent intent = getIntent();
+                String name = intent.getStringExtra("name");
+                String phone = intent.getStringExtra("phone");
+                Intent intent2 = new Intent(TicketPage.this, TicketsFragment.class);
+                intent2.putExtra("data", jsonData);
+                startActivity(intent2);
+            }
+        });
     }
 
     private class SendDataAsyncTask extends AsyncTask<Object, Void, String> {
@@ -44,15 +62,6 @@ public class TicketPage extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-//            // 在 UI 线程中更新 UI 控件
-//            if (s != null) {
-//                responseTextView.setText(s); // 将获取的数据显示在 TextView 中
-//            } else {
-//                responseTextView.setText("Failed to send data"); // 显示错误信息
-//            }
-
-
             if (s != null) {
                 // 将 base64 编码的字符串解码为字节数组
                 byte[] decodedBytes = android.util.Base64.decode(s, android.util.Base64.DEFAULT);
@@ -65,4 +74,6 @@ public class TicketPage extends AppCompatActivity {
             }
         }
     }
+
+
 }
