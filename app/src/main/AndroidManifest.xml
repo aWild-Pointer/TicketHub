@@ -16,6 +16,9 @@
         android:theme="@style/Theme.TicketHub"
         tools:targetApi="31">
         <activity
+            android:name=".NavigationBar"
+            android:exported="false" />
+        <activity
             android:name=".TicketPage"
             android:exported="true" />
         <activity

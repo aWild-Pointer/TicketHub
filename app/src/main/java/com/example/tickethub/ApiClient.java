@@ -1,63 +1,55 @@
 package com.example.tickethub;
 
-import okhttp3.MediaType;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-//import okhttp3.logging.HttpLoggingInterceptor;
+import java.io.IOException;
+import java.util.Map;
+
 public class ApiClient {
+    private OkHttpClient client = new OkHttpClient();
 
-    OkHttpClient client = new OkHttpClient();
-    public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+    public void postData(Map<String, String> data, String url, final ApiCallback callback) {
+        FormBody.Builder formBuilder = new FormBody.Builder();
+        for (Map.Entry<String, String> entry : data.entrySet()) {
+            formBuilder.add(entry.getKey(), entry.getValue());
+        }
 
-    // 发起网络请求并获取数据的方法
-    public String fetchData(String url) {
-        // 构建一个请求对象
+        RequestBody requestBody = formBuilder.build();
         Request request = new Request.Builder()
                 .url(url)
+                .post(requestBody)
                 .build();
 
-        try {
-            // 同步执行请求并获取响应对象
-            Response response = client.newCall(request).execute();
-            // 返回响应体中的字符串形式数据
-            return response.body().string();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null; // 如果发生异常，则返回 null
-        }
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                // 请求失败时调用 onFailure 回调
+                e.printStackTrace();
+                callback.onFailure(e);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    //请求成功时调用 onSuccess 回调
+                    String responseData = response.body().string();
+                    callback.onSuccess(responseData);
+                } else {
+                    callback.onFailure(new IOException("Unexpected code " + response));
+                }
+            }
+        });
     }
 
-    // 发送 POST 请求并获取数据的方法
-    public String postData(String url, String json) {
-        // 构建请求体
-        RequestBody body = RequestBody.create(json, JSON);
-        // 构建一个 POST 请求对象
-        Request request = new Request.Builder()
-                .url(url)
-                .post(body)
-                .build();
-
-        try {
-            // 打印请求信息
-            System.out.println("Sending POST request to: " + url);
-            System.out.println("Request body: " + json);
-
-            // 同步执行请求并获取响应对象
-            Response response = client.newCall(request).execute();
-            // 返回响应体中的字符串形式数据
-            String responseData = response.body().string();
-
-            // 打印响应信息
-            System.out.println("Response from server: " + responseData);
-
-            return responseData;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null; // 如果发生异常，则返回 null
-        }
+    public interface ApiCallback {
+        // 定义回调接口，用于处理请求结果
+        void onSuccess(String responseData);
+        void onFailure(Exception e);
     }
 }
-

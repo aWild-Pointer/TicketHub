@@ -1,22 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:orientation="vertical"
+    android:gravity="top"
+    android:padding="16dp">
 
-    <FrameLayout
-        android:id="@+id/fragment_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/bottom_navigation"/>
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        app:menu="@menu/bottom_nav_menu"/>
+        android:background="@drawable/background_shape"
+        android:padding="16dp"
+        android:layout_marginBottom="16dp"> <!-- 可选：添加底部外边距 -->
 
-</RelativeLayout>
+        <TextView
+            android:layout_width="400dp"
+            android:layout_height="200dp"
+            android:fontFamily="@font/font1"
+            android:gravity="center"
+            android:text="TicketHub"
+            android:textSize="50sp" />
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/phoneEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="请输入手机号"
+        android:inputType="phone" />
+
+    <Button
+        android:id="@+id/sendCodeButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="获取验证码" />
+
+    <EditText
+        android:id="@+id/CodeEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="请输入验证码"
+        android:inputType="number" />
+
+    <Button
+        android:id="@+id/verifyButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="登录" />
+
+</LinearLayout>

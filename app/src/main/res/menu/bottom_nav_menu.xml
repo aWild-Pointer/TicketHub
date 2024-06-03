@@ -3,11 +3,11 @@
     <item
         android:id="@+id/nav_home"
         android:icon="@drawable/home"
-        android:title="Home" />
+        android:title="首页" />
     <item
         android:id="@+id/nav_tickets"
         android:icon="@drawable/ticket"
-        android:title="Tickets" />
+        android:title="票夹" />
 <!--    <item-->
 <!--        android:id="@+id/nav_messages"-->
 <!--        android:icon="@drawable/message"-->
@@ -15,5 +15,5 @@
     <item
         android:id="@+id/nav_profile"
         android:icon="@drawable/my"
-        android:title="Profile" />
+        android:title="我的" />
 </menu>

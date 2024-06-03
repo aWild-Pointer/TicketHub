@@ -8,25 +8,25 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.navigationbar.HomeFragment"
+        android:name="com.example.tickethub.HomeFragment"
         android:label="Home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/ticketFragment"
-        android:name="com.example.navigationbar.TicketsFragment"
+        android:name="com.example.tickethub.TicketsFragment"
         android:label="Tickets"
         tools:layout="@layout/fragment_tickets" />
 
     <fragment
         android:id="@+id/messageFragment"
-        android:name="com.example.navigationbar.MessagesFragment"
+        android:name="com.example.tickethub.MessagesFragment"
         android:label="Messages"
         tools:layout="@layout/fragment_messages" />
 
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.navigationbar.ProfileFragment"
+        android:name="com.example.tickethub.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_profile" />
 </navigation>

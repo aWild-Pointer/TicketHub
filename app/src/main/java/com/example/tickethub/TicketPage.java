@@ -1,17 +1,23 @@
 package com.example.tickethub;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -36,61 +42,46 @@ public class TicketPage extends AppCompatActivity {
 
         String data = "test-Linux";
 
-        sendRequest(data);
+        Map<String,String> Data = new LinkedHashMap<>();
+        Data.put("data",data);
 
+        ApiClient apiClient =new ApiClient();
+        apiClient.postData(Data, "http://106.14.13.36:5000/api/generate_qr", new ApiClient.ApiCallback() {
+            @Override
+            public void onSuccess(String responseData) {
+                //在 UI 线程中处理成功的响应
+                runOnUiThread(() -> {
+                    if (responseData != null) {
+                        try {
+                            //解码 Base64 数据并转换为 Bitmap
+                            byte[] decodedBytes = Base64.decode(responseData, Base64.DEFAULT);
+                            Bitmap bitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+                            //显示 Bitmap
+                            qrImageView.setImageBitmap(bitmap);
+                        } catch (Exception e) {
+                        }
+                    }
+                });
+            }
+            @Override
+            public void onFailure(Exception e) {
+                runOnUiThread(() -> {
+                    Toast.makeText(TicketPage.this, "Failed to load QR code", Toast.LENGTH_SHORT).show();
+                });
+            }
+        });
+
+//        byte[] decodedBytes = android.util.Base64.decode(responseData, android.util.Base64.DEFAULT);
+//        Bitmap bitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+//        qrImageView.setImageBitmap(bitmap);
+//
         btn_return.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = getIntent();
-                String name = intent.getStringExtra("name");
-                String phone = intent.getStringExtra("phone");
-                Intent intent2 = new Intent(TicketPage.this, TicketsFragment.class);
-                intent2.putExtra("data", data);
-                startActivity(intent2);
+                finish();
             }
         });
     }
 
-    private void sendRequest(String data) {
-        OkHttpClient client = new OkHttpClient();
-        RequestBody requestBody = new FormBody.Builder()
-                .add("data", data)
-                .build();
-        Request request = new Request.Builder()
-                .url("http://106.14.13.36:5000/api/generate_qr")
-                .post(requestBody)
-                .build();
 
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if (!response.isSuccessful()) {
-                    throw new IOException("Unexpected code " + response);
-                }
-
-                String responseData = response.body().string();
-                try {
-
-                    byte[] decodedBytes = android.util.Base64.decode(responseData, android.util.Base64.DEFAULT);
-                    Bitmap bitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
-
-                    // 更新 UI 必须在主线程中进行
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            qrImageView.setImageBitmap(bitmap);
-                        }
-                    });
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
 }

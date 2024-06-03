@@ -1,57 +1,105 @@
 package com.example.tickethub;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
+    private EditText phoneEditText, codeEditText;
+    private Button sendCodeButton, verifyButton;
+    private int code;
 
-    private BottomNavigationView bottomNav;
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        bottomNav = findViewById(R.id.bottom_navigation);
-        bottomNav.setOnItemSelectedListener(navListener);
+        phoneEditText = findViewById(R.id.phoneEditText);
+        codeEditText = findViewById(R.id.CodeEditText);
+        sendCodeButton = findViewById(R.id.sendCodeButton);
+        verifyButton = findViewById(R.id.verifyButton);
 
-        // 设置初始片段
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, new HomeFragment())
-                    .commit();
-        }
+        sendCodeButton.setOnClickListener(v -> getCode());
+        verifyButton.setOnClickListener(v -> login());
     }
 
-    private BottomNavigationView.OnItemSelectedListener navListener =
-            new BottomNavigationView.OnItemSelectedListener() {
-                @Override
-                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                    Fragment selectedFragment = null;
-                    int itemId = item.getItemId(); // 获取所选项的ID
-                    if (itemId == R.id.nav_home) {
-                        selectedFragment = new HomeFragment();
-                    } else if (itemId == R.id.nav_tickets) {
-                        selectedFragment = new TicketsFragment();
-                    } else if (itemId == R.id.nav_messages) {
-                        selectedFragment = new MessagesFragment();
-                    } else if (itemId == R.id.nav_profile) {
-                        selectedFragment = new ProfileFragment();
+    public void getCode() {
+        String phone = phoneEditText.getText().toString().trim();
+        ApiClient apiClient = new ApiClient();
+        Map<String, String> Data = new LinkedHashMap<>();
+        Data.put("phone", phone);
+        apiClient.postData(Data, "http://106.14.13.36:5000/api/logcode", new ApiClient.ApiCallback() {
+            @Override
+            public void onSuccess(String responseData) {
+                runOnUiThread(() -> {
+                    if (responseData != null) {
+                        AlertDialog alertDialog1 = new AlertDialog.Builder(MainActivity.this)
+                                .setTitle("验证码确认")
+                                .setMessage(responseData)
+                                .setIcon(R.mipmap.ic_launcher)
+                                .setPositiveButton("朕知道了", (dialog, which) -> dialog.dismiss())
+                                .create();
+                        alertDialog1.show();
                     }
+                });
+            }
 
-                    // 在提交片段事务之前进行空值检查
-                    if (selectedFragment != null) {
-                        getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.fragment_container, selectedFragment)
-                                .commit();
-                        return true;
+            @Override
+            public void onFailure(Exception e) {
+                e.printStackTrace();
+                runOnUiThread(() -> {
+                    AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this)
+                            .setTitle("错误")
+                            .setMessage("获取验证码失败，请重试！")
+                            .setIcon(R.mipmap.ic_launcher)
+                            .setPositiveButton("朕知道了", (dialog, which) -> dialog.dismiss())
+                            .create();
+                    alertDialog.show();
+                });
+            }
+        });
+    }
+
+    public void login() {
+        String phone = phoneEditText.getText().toString().trim();
+        String code = codeEditText.getText().toString().trim();
+        Map<String, String> Data = new LinkedHashMap<>();
+        Data.put("phone", phone);
+        Data.put("code", code);
+        ApiClient apiClient = new ApiClient();
+        apiClient.postData(Data, "http://106.14.13.36:5000/api/login", new ApiClient.ApiCallback() {
+            @Override
+            public void onSuccess(String responseData) {
+                runOnUiThread(() -> {
+                    if (Objects.equals(responseData, "SUCCESS")) {
+                        Intent intent = new Intent(MainActivity.this, NavigationBar.class);
+                        startActivity(intent);
                     }
-                    return false;
-                }
-            };
+                });
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                e.printStackTrace();
+                runOnUiThread(() -> {
+                    AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this)
+                            .setTitle("错误")
+                            .setMessage("登录失败，请重试！")
+                            .setIcon(R.mipmap.ic_launcher)
+                            .setPositiveButton("朕知道了", (dialog, which) -> dialog.dismiss())
+                            .create();
+                    alertDialog.show();
+                });
+            }
+        });
+    }
 }
+
