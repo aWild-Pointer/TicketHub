@@ -18,7 +18,7 @@
             android:layout_height="200dp"
             android:fontFamily="@font/font1"
             android:gravity="center"
-            android:text="TicketHub"
+            android:text="TicketHub\n一个全新的\n演出票务平台"
             android:textSize="50sp" />
     </RelativeLayout>
 
@@ -47,5 +47,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="登录" />
+
+    <TextView
+        android:layout_width="379dp"
+        android:layout_height="200dp"
+        android:id='@+id/codeshow'
+        android:fontFamily="@font/font1"
+        android:gravity="center"
+        android:text="欢迎来到TicketHub"
+        android:textSize="50sp"
+        >
+
+    </TextView>
 
 </LinearLayout>

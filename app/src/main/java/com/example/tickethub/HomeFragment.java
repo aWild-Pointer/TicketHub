@@ -8,12 +8,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-
+import com.example.tickethub.Utils.ApiClient;
 import com.example.tickethub.Utils.Event;
 import com.example.tickethub.Utils.EventAdapter;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class HomeFragment extends Fragment {
 
@@ -31,21 +36,58 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        // Initialize RecyclerView and other views here
+        // 初始化 RecyclerView 和其他视图
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         eventList = new ArrayList<>();
-        // Populate your list with event data
-        eventList.add(new Event("南京站", "2024张惠妹 ASMR MAX巡回演唱会 - 南京站\n时间: 2024.05.11 周六 19:00\n场馆: 南京市 | 南京奥体中心体育场", R.drawable.event_nanjing));
-        eventList.add(new Event("北京站", "坂本龙一经典名曲LIVE音乐现场\n时间: 2024.03.27 周三 19:30-21:00\n场馆: 北京市 | 爱乐汇艺术空间", R.drawable.event_beijing));
-        eventList.add(new Event("上海站", "2024张杰未来·LIVE “开往1982”巡回演唱会 - 上海站\n时间: 2024.03.28 03:30\n场馆: 上海市 | 虹口足球场", R.drawable.event_shanghai));
-        eventList.add(new Event("北京站", "2024檀谷开山节\n时间: 2024.03.27\n场馆: 北京市", R.drawable.event_beijing2));
-
         eventAdapter = new EventAdapter(getContext(), eventList);
         recyclerView.setAdapter(eventAdapter);
 
+        // 模拟网络请求获取数据
+        for (int i = 1; i <= 4; i++) {
+            Map<String, String> data = new LinkedHashMap<>();
+            data.put("choice", String.valueOf(i));
+            setEvent(data);
+        }
+
         return view;
     }
-}
 
+    private void setEvent(Map<String, String> data) {
+        ApiClient apiClient = new ApiClient();
+        apiClient.postData(data, "http://106.14.13.36:5000/api/eventinfo", new ApiClient.ApiCallback() {
+            @Override
+            public void onSuccess(String responseData) {
+                try {
+                    JSONObject jsonObject = new JSONObject(responseData);
+                    String eventName = jsonObject.optString("eventname");
+                    String eventinfo = jsonObject.optString("eventinfo");
+                    String eventresource = jsonObject.optString("eventresource");
+
+                    // 根据资源名称获取资源ID
+                    int resId = getResources().getIdentifier(eventresource, "drawable", getActivity().getPackageName());
+                    if (resId == 0) {
+                        // 资源未找到，使用默认资源
+                        resId = R.drawable.error; // 你需要定义一个默认图片
+                    }
+
+                    Event event = new Event(eventName, eventinfo, resId);
+
+                    // 在主线程中更新UI
+                    getActivity().runOnUiThread(() -> {
+                        eventList.add(event);
+                        eventAdapter.notifyDataSetChanged(); // 使用 notifyDataSetChanged 更新整个列表
+                    });
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+}

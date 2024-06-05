@@ -21,24 +21,24 @@
             android:src="@drawable/head" />
 
         <TextView
-            android:id="@+id/account_id"
+            android:id="@+id/username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/profile_image"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="8dp"
-            android:text="账户Ab12345"
+            android:text="未知账号"
             android:textColor="@android:color/black"
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/verification_status"
+            android:id="@+id/userinfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/account_id"
+            android:layout_below="@id/username"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="4dp"
-            android:text="已实名"
+            android:text="未知"
             android:textColor="@android:color/holo_red_dark"
             android:textSize="14sp" />
 
@@ -46,7 +46,7 @@
             android:id="@+id/personal_info_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/verification_status"
+            android:layout_below="@id/userinfo"
             android:layout_alignParentStart="true"
             android:layout_marginTop="16dp"
             android:text="个人资料" />
@@ -55,7 +55,7 @@
             android:id="@+id/my_store_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/verification_status"
+            android:layout_below="@id/userinfo"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="16dp"
             android:text="我的现场" />
@@ -71,102 +71,71 @@
         android:columnOrderPreserved="false"
         android:useDefaultMargins="true">
 
-        <LinearLayout
+        <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:drawableTop="@drawable/ic_orders"
+            android:text="我的订单"
+            android:textSize="16sp"
+            android:background="?attr/selectableItemBackground"
+            android:padding="16dp"
+            android:layout_margin="8dp"
+            android:textColor="@android:color/black" />
 
-            <ImageView
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:src="@drawable/ic_orders" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="我的订单"
-                android:textSize="16sp" />
-        </LinearLayout>
-
-        <LinearLayout
+        <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:drawableTop="@drawable/ic_wallet"
+            android:text="我的卡包"
+            android:textSize="16sp"
+            android:background="?attr/selectableItemBackground"
+            android:padding="16dp"
+            android:layout_margin="8dp"
+            android:textColor="@android:color/black" />
 
-            <ImageView
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:src="@drawable/ic_wallet" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="我的卡包"
-                android:textSize="16sp" />
-        </LinearLayout>
-
-        <LinearLayout
+        <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:drawableTop="@drawable/ic_favorites"
+            android:text="我的收藏"
+            android:textSize="16sp"
+            android:background="?attr/selectableItemBackground"
+            android:padding="16dp"
+            android:layout_margin="8dp"
+            android:textColor="@android:color/black" />
 
-            <ImageView
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:src="@drawable/ic_favorites" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="我的收藏"
-                android:textSize="16sp" />
-        </LinearLayout>
-
-        <LinearLayout
+        <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:drawableTop="@drawable/ic_events"
+            android:text="活动中心"
+            android:textSize="16sp"
+            android:background="?attr/selectableItemBackground"
+            android:padding="16dp"
+            android:layout_margin="8dp"
+            android:textColor="@android:color/black" />
 
-            <ImageView
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:src="@drawable/ic_events" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="活动中心"
-                android:textSize="16sp" />
-        </LinearLayout>
-
-        <LinearLayout
+        <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
-            android:orientation="vertical"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:src="@drawable/ic_settings" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="设置"
-                android:textSize="16sp" />
-        </LinearLayout>
+            android:gravity="center"
+            android:drawableTop="@drawable/ic_settings"
+            android:text="设置"
+            android:textSize="16sp"
+            android:background="?attr/selectableItemBackground"
+            android:padding="16dp"
+            android:layout_margin="8dp"
+            android:textColor="@android:color/black" />
 
     </GridLayout>
 
 </LinearLayout>
-
