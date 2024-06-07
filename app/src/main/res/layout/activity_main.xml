@@ -18,7 +18,7 @@
             android:layout_height="200dp"
             android:fontFamily="@font/font1"
             android:gravity="center"
-            android:text="TicketHub\n一个全新的\n演出票务平台"
+            android:text="TicketHub\n一个年轻的\n演出票务平台"
             android:textSize="50sp" />
     </RelativeLayout>
 

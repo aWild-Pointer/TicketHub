@@ -1,5 +1,7 @@
 package com.example.tickethub.Utils;
 
+import android.os.Handler;
+
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -13,6 +15,7 @@ import java.util.Map;
 
 public class ApiClient {
     private OkHttpClient client = new OkHttpClient();
+
 
     public void postData(Map<String, String> data, String url, final ApiCallback callback) {
         FormBody.Builder formBuilder = new FormBody.Builder();
@@ -46,6 +49,28 @@ public class ApiClient {
             }
         });
     }
+
+    public void getData(String url, ApiCallback callback) {
+        Request request = new Request.Builder().url(url).build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                callback.onFailure(e);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful() && response.body() != null) {
+                    callback.onSuccess(response.body().string());
+                } else {
+                    callback.onFailure(new IOException("Unexpected code " + response));
+                }
+            }
+        });
+    }
+
+
 
     public interface ApiCallback {
         // 定义回调接口，用于处理请求结果

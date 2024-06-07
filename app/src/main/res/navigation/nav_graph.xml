@@ -8,13 +8,13 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.tickethub.HomeFragment"
+        android:name="com.example.tickethub.UI.HomeFragment"
         android:label="Home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/ticketFragment"
-        android:name="com.example.tickethub.TicketsFragment"
+        android:name="com.example.tickethub.UI.TicketsFragment"
         android:label="Tickets"
         tools:layout="@layout/fragment_tickets" />
 
@@ -26,7 +26,7 @@
 
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.tickethub.ProfileFragment"
+        android:name="com.example.tickethub.UI.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_profile" />
 </navigation>

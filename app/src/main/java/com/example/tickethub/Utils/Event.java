@@ -22,4 +22,5 @@ public class Event {
     public int getImageResourceId() {
         return imageResourceId;
     }
+
 }

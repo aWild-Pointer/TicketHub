@@ -1,4 +1,4 @@
-package com.example.tickethub;
+package com.example.tickethub.UI;
 
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.tickethub.R;
 import com.example.tickethub.Utils.ApiClient;
 import com.example.tickethub.Utils.Event;
 import com.example.tickethub.Utils.EventAdapter;

@@ -1,4 +1,4 @@
-package com.example.tickethub;
+package com.example.tickethub.UI;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -12,6 +12,9 @@ import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.widget.ImageView;
+
+import com.example.tickethub.R;
+import com.example.tickethub.TicketPage;
 
 import java.io.IOException;
 

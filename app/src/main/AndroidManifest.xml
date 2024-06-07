@@ -16,8 +16,11 @@
         android:theme="@style/Theme.TicketHub"
         tools:targetApi="31">
         <activity
-            android:name=".NavigationBar"
+            android:name=".EventInfo"
             android:exported="false" />
+        <activity
+            android:name=".NavigationBar"
+            android:exported="true" />
         <activity
             android:name=".TicketPage"
             android:exported="true" />
@@ -30,6 +33,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".HistoryActivity"
+            android:exported="true" />
     </application>
 
 </manifest>

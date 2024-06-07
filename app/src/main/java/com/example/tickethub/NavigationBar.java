@@ -7,6 +7,9 @@ import androidx.fragment.app.Fragment;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.tickethub.UI.HomeFragment;
+import com.example.tickethub.UI.ProfileFragment;
+import com.example.tickethub.UI.TicketsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class NavigationBar extends AppCompatActivity {

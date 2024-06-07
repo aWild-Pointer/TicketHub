@@ -1,0 +1,110 @@
+<!-- res/layout/activity_main.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <!-- Header image -->
+    <ImageView
+        android:id="@+id/header_image"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/event_nanjing"
+        android:scaleType="centerCrop" />
+
+    <!-- Title and back button container -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="16dp">
+
+        <Button
+            android:id="@+id/btn_return"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@color/transparent"
+            android:paddingEnd="16dp"
+            android:text="&lt;"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="2024张惠妹 ASMR MAX巡回演唱会 - 南京站"
+            android:textSize="24sp"
+            android:textAlignment="center" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="时间: 2024.05.11 周六 19:00\n场馆: 南京市 | 南京奥体中心体育场"
+        android:textSize="16sp"
+        android:padding="16dp" />
+
+    <!-- Ticket options -->
+    <RadioGroup
+        android:id="@+id/options"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <RadioButton
+            android:id="@+id/ticket380"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="380 RMB" />
+
+        <RadioButton
+            android:id="@+id/ticket580"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="580 RMB" />
+
+        <RadioButton
+            android:id="@+id/ticket780"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="780 RMB" />
+
+        <RadioButton
+            android:id="@+id/ticket980"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="980 RMB" />
+
+        <RadioButton
+            android:id="@+id/ticket1180"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1180 RMB" />
+
+        <RadioButton
+            android:id="@+id/ticket1280"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1280 RMB" />
+    </RadioGroup>
+
+    <!-- Buy button -->
+    <Button
+        android:id="@+id/buybutton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="即刻购买"
+        android:padding="16dp"
+        android:layout_margin="16dp"/>
+
+
+
+</LinearLayout>

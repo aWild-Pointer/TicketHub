@@ -5,16 +5,32 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="历史票根详情"
-        android:textSize="22sp"
-        android:paddingBottom="16dp" />
+        android:orientation="horizontal">
 
-    <!-- 这里可以添加更多详情信息 -->
-    <TextView
+        <Button
+            android:id="@+id/btn_return"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:text="&lt;"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="历史票根详情"
+            android:textSize="22sp"
+            android:paddingBottom="16dp" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="详情内容..." />
+        android:layout_height="wrap_content" />
 </LinearLayout>

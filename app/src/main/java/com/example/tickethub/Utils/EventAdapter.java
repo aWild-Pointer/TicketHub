@@ -1,6 +1,7 @@
 package com.example.tickethub.Utils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +12,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-
+import com.example.tickethub.EventInfo;
 import com.example.tickethub.R;
+
 
 import java.util.List;
 
@@ -40,7 +42,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         holder.eventDetailsTextView.setText(event.getDetails());
         holder.eventImageView.setImageResource(event.getImageResourceId());
         holder.eventButton.setOnClickListener(v -> {
-            // Handle button click
+            Intent intent = new Intent(context, EventInfo.class);
+            intent.putExtra("eventTitle", event.getTitle());
+            intent.putExtra("eventDetails", event.getDetails());
+            context.startActivity(intent);
         });
     }
 
